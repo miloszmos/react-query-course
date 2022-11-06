@@ -1,6 +1,12 @@
-import IssuesList from "../components/IssuesList";
-import LabelList from "../components/LabelList";
+import React, { useState } from 'react';
+import IssuesList from '../components/IssuesList';
+import LabelList from '../components/LabelList';
+
 export default function Issues() {
+  const [labels, setLabels] = useState([]);
+
+  console.log(labels);
+
   return (
     <div>
       <main>
@@ -9,7 +15,18 @@ export default function Issues() {
           <IssuesList />
         </section>
         <aside>
-          <LabelList />
+          <LabelList
+            selected={labels}
+            toggle={(label) =>
+              setLabels((currentLabels) =>
+                currentLabels.includes(label)
+                  ? currentLabels.filter(
+                      (currentLabel) => currentLabel !== label
+                    )
+                  : currentLabels.concat(label)
+              )
+            }
+          />
         </aside>
       </main>
     </div>
