@@ -5,20 +5,19 @@ import LabelList from '../components/LabelList';
 export default function Issues() {
   const [labels, setLabels] = useState([]);
 
-  console.log(labels);
-
   return (
     <div>
       <main>
         <section>
           <h1>Issues</h1>
-          <IssuesList />
+          <IssuesList labels={labels} />
         </section>
         <aside>
           <LabelList
             selected={labels}
             toggle={(label) =>
               setLabels((currentLabels) =>
+                // @ts-ignore
                 currentLabels.includes(label)
                   ? currentLabels.filter(
                       (currentLabel) => currentLabel !== label

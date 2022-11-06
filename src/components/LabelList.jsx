@@ -4,7 +4,7 @@ import { useLabelsData } from '../helpers/useLabelsData';
 export default function LabelList({ selected, toggle }) {
   const labelsQuery = useLabelsData();
   return (
-    <div>
+    <div className="labels">
       <h3>Labels</h3>
       {labelsQuery.isLoading ? (
         <p>Loading</p>
@@ -12,7 +12,12 @@ export default function LabelList({ selected, toggle }) {
         <ul>
           {labelsQuery.data.map((label) => (
             <li key={label.id}>
-              <button onClick={toggle} className={`${label.color}`}>
+              <button
+                onClick={() => toggle(label.id)}
+                className={`label ${label.color} ${
+                  selected.includes(label.id) ? 'selected' : ''
+                }`}
+              >
                 {label.name}
               </button>
             </li>

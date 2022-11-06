@@ -2,9 +2,19 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { IssueItem } from './IssueItem';
 
-export default function IssuesList() {
-  const { isLoading, data } = useQuery(['issues'], () =>
-    fetch('/api/issues').then((res) => res.json())
+export default function IssuesList({ labels }) {
+  const { isLoading, data } = useQuery(
+    [
+      'issues',
+      {
+        labels,
+      },
+    ],
+    async () => {
+      const labelsString = labels.map((label) => `labels[]=${label}`).join('&');
+      const res = await fetch(`/api/issues?${labelsString}`);
+      return await res.json();
+    }
   );
 
   return (
